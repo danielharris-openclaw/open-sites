@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дача Фроловых — бронирование заездов</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5efe4;
+    --cream-deep: #ebe2d0;
+    --moss: #5b6e4a;
+    --moss-dark: #3e4d33;
+    --bark: #6b4f3a;
+    --bark-deep: #432f20;
+    --ember: #c9612e;
+    --gold: #d4a857;
+    --sky: #a8b8a3;
+    --ink: #2a2218;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Manrope', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.6;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: 
+      radial-gradient(circle at 20% 30%, rgba(91, 110, 74, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(201, 97, 46, 0.06) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* HERO */
+  header {
+    position: relative;
+    z-index: 2;
+    padding: 2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--moss-dark);
+    letter-spacing: 0.02em;
+  }
+  .logo span { color: var(--ember); }
+  .nav-tag {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: var(--bark);
+    border: 1px solid var(--bark);
+    padding: 0.6rem 1.2rem;
+    border-radius: 100px;
+  }
+
+  .hero {
+    position: relative;
+    z-index: 2;
+    padding: 4rem 3rem 6rem;
+    max-width: 1300px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .hero-left h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 500;
+    line-height: 0.95;
+    color: var(--moss-dark);
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+  .hero-left h1 em {
+    font-style: italic;
+    color: var(--ember);
+    display: block;
+  }
+  .hero-left p {
+    font-size: 1.15rem;
+    color: var(--bark-deep);
+    max-width: 480px;
+    margin-bottom: 2.5rem;
+  }
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(107, 79, 58, 0.2);
+  }
+  .stat {
+    display: flex;
+    flex-direction: column;
+  }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: var(--moss-dark);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--bark);
+    margin-top: 0.4rem;
+  }
+
+  .hero-right {
+    position: relative;
+    aspect-ratio: 4/5;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 
+      0 30px 60px -20px rgba(62, 77, 51, 0.4),
+      0 0 0 8px var(--cream),
+      0 0 0 9px rgba(107, 79, 58, 0.3);
+  }
+  .hero-photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Тёплый летний фильтр: убираем холод зимы, добавляем тепло */
+    filter: 
+      sepia(0.3)
+      saturate(1.7)
+      hue-rotate(-10deg)
+      brightness(1.1)
+      contrast(1.15);
+  }
+  .hero-photo-overlay {
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(circle at 75% 20%, rgba(255, 220, 130, 0.4) 0%, transparent 55%),
+      linear-gradient(to bottom, rgba(255, 200, 100, 0.15) 0%, transparent 40%, rgba(91, 110, 74, 0.2) 100%);
+    pointer-events: none;
+    mix-blend-mode: overlay;
+  }
+  .hero-photo-warmth {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 180, 80, 0.18), rgba(212, 168, 87, 0.08));
+    pointer-events: none;
+    mix-blend-mode: soft-light;
+  }
+  .hero-badge {
+    position: absolute;
+    bottom: -30px;
+    right: -30px;
+    width: 140px;
+    height: 140px;
+    background: var(--ember);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cream);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    text-align: center;
+    font-size: 1rem;
+    line-height: 1.2;
+    transform: rotate(-15deg);
+    box-shadow: 0 10px 30px rgba(201, 97, 46, 0.4);
+    z-index: 3;
+  }
+
+  /* CALENDAR SECTION */
+  .booking-section {
+    position: relative;
+    z-index: 2;
+    padding: 6rem 3rem;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+  .section-head {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+  .section-tag {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--ember);
+    margin-bottom: 1rem;
+  }
+  .section-head h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 500;
+    color: var(--moss-dark);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .section-head h2 em {
+    font-style: italic;
+    color: var(--bark);
+  }
+
+  .booking-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 3rem;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(107, 79, 58, 0.15);
+    padding: 3rem;
+    border-radius: 8px;
+    box-shadow: 0 20px 60px -20px rgba(62, 77, 51, 0.15);
+  }
+
+  /* CALENDAR */
+  .calendar-wrap h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    color: var(--moss-dark);
+    margin-bottom: 0.3rem;
+  }
+  .calendar-sub {
+    font-size: 0.85rem;
+    color: var(--bark);
+    margin-bottom: 1.5rem;
+  }
+  .calendar-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding: 0 0.5rem;
+  }
+  .month-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--moss-dark);
+    text-transform: capitalize;
+  }
+  .nav-btn {
+    width: 38px;
+    height: 38px;
+    border: 1px solid var(--bark);
+    background: transparent;
+    border-radius: 50%;
+    color: var(--bark);
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+  .nav-btn:hover {
+    background: var(--bark);
+    color: var(--cream);
+  }
+  .weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-bottom: 8px;
+  }
+  .weekday {
+    text-align: center;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--bark);
+    padding: 0.5rem 0;
+  }
+  .days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+  }
+  .day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: rgba(255, 255, 255, 0.4);
+    color: var(--ink);
+    position: relative;
+    user-select: none;
+  }
+  .day.empty {
+    background: transparent;
+    cursor: default;
+  }
+  .day.past {
+    color: rgba(107, 79, 58, 0.3);
+    cursor: not-allowed;
+    background: transparent;
+  }
+  .day.booked {
+    background: var(--bark-deep);
+    color: var(--cream);
+    cursor: not-allowed;
+    position: relative;
+  }
+  .day.booked::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border: 1px dashed rgba(245, 239, 228, 0.4);
+    border-radius: 4px;
+  }
+  .day:not(.empty):not(.past):not(.booked):hover {
+    background: var(--sky);
+    transform: scale(1.05);
+  }
+  .day.selected {
+    background: var(--ember);
+    color: var(--cream);
+    font-weight: 600;
+  }
+  .day.in-range {
+    background: rgba(201, 97, 46, 0.25);
+    color: var(--bark-deep);
+  }
+  .day.today {
+    font-weight: 700;
+    box-shadow: inset 0 0 0 2px var(--moss);
+  }
+
+  .legend {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px dashed rgba(107, 79, 58, 0.2);
+    flex-wrap: wrap;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--bark);
+  }
+  .legend-box {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+  }
+
+  /* FORM */
+  .form-wrap {
+    background: var(--cream-deep);
+    padding: 2rem;
+    border-radius: 6px;
+    position: relative;
+  }
+  .form-wrap h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    color: var(--moss-dark);
+    margin-bottom: 0.3rem;
+  }
+  .form-sub {
+    font-size: 0.85rem;
+    color: var(--bark);
+    margin-bottom: 1.5rem;
+  }
+  .selected-dates {
+    background: var(--cream);
+    padding: 1rem;
+    border-radius: 4px;
+    margin-bottom: 1.5rem;
+    border-left: 3px solid var(--ember);
+    min-height: 60px;
+  }
+  .selected-dates .label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--bark);
+    margin-bottom: 0.3rem;
+  }
+  .selected-dates .value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    color: var(--moss-dark);
+    font-weight: 600;
+  }
+  .selected-dates .empty-text {
+    color: var(--bark);
+    font-style: italic;
+    font-size: 0.95rem;
+  }
+  .form-group {
+    margin-bottom: 1.2rem;
+  }
+  .form-group label {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--bark);
+    margin-bottom: 0.5rem;
+  }
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: var(--cream);
+    border: 1px solid rgba(107, 79, 58, 0.2);
+    border-radius: 4px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.95rem;
+    color: var(--ink);
+    transition: border-color 0.2s;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    outline: none;
+    border-color: var(--ember);
+  }
+  .form-group textarea {
+    resize: vertical;
+    min-height: 70px;
+  }
+  .submit-btn {
+    width: 100%;
+    padding: 1rem;
+    background: var(--moss-dark);
+    color: var(--cream);
+    border: none;
+    border-radius: 4px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+  }
+  .submit-btn:hover {
+    background: var(--ember);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(201, 97, 46, 0.3);
+  }
+  .submit-btn:disabled {
+    background: rgba(107, 79, 58, 0.3);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* BOOKINGS LIST */
+  .bookings-list {
+    position: relative;
+    z-index: 2;
+    padding: 4rem 3rem 6rem;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+  .bookings-list h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    color: var(--moss-dark);
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  .bookings-list h3 em { font-style: italic; color: var(--ember); }
+  .bookings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .booking-card {
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(107, 79, 58, 0.15);
+    border-radius: 6px;
+    padding: 1.5rem;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  .booking-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 40px -10px rgba(62, 77, 51, 0.2);
+  }
+  .booking-card .name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--moss-dark);
+    margin-bottom: 0.3rem;
+  }
+  .booking-card .dates {
+    font-size: 0.9rem;
+    color: var(--bark);
+    margin-bottom: 0.8rem;
+  }
+  .booking-card .note {
+    font-size: 0.85rem;
+    color: var(--ink);
+    font-style: italic;
+    padding-top: 0.8rem;
+    border-top: 1px dashed rgba(107, 79, 58, 0.2);
+  }
+  .booking-card .delete-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: transparent;
+    border: none;
+    color: var(--bark);
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+    font-size: 1.2rem;
+  }
+  .booking-card .delete-btn:hover { opacity: 1; color: var(--ember); }
+  .no-bookings {
+    text-align: center;
+    color: var(--bark);
+    font-style: italic;
+    padding: 2rem;
+    grid-column: 1 / -1;
+  }
+
+  /* TOAST */
+  .toast {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: var(--moss-dark);
+    color: var(--cream);
+    padding: 1rem 1.5rem;
+    border-radius: 4px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    transform: translateY(150px);
+    opacity: 0;
+    transition: all 0.4s ease;
+    z-index: 100;
+    font-size: 0.9rem;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+  .toast.error { background: var(--ember); }
+
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 3rem;
+    color: var(--bark);
+    font-size: 0.85rem;
+    border-top: 1px dashed rgba(107, 79, 58, 0.2);
+  }
+  footer em { font-family: 'Cormorant Garamond', serif; font-style: italic; }
+
+  /* IMPORTANT NOTICE */
+  .important-notice {
+    position: relative;
+    z-index: 2;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 3rem;
+  }
+  .notice-banner {
+    background: #fff5f5;
+    border: 2px solid #c92e2e;
+    border-left: 8px solid #c92e2e;
+    padding: 1.5rem 2rem;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    box-shadow: 0 10px 30px -10px rgba(201, 46, 46, 0.25);
+    animation: pulse-border 2.5s ease-in-out infinite;
+  }
+  @keyframes pulse-border {
+    0%, 100% { box-shadow: 0 10px 30px -10px rgba(201, 46, 46, 0.25); }
+    50% { box-shadow: 0 10px 40px -5px rgba(201, 46, 46, 0.5); }
+  }
+  .notice-icon {
+    font-size: 2.2rem;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+  .notice-text {
+    color: #c92e2e;
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: 0.01em;
+  }
+  .notice-text strong {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem;
+    display: block;
+    margin-bottom: 0.2rem;
+    letter-spacing: 0.05em;
+  }
+  @media (max-width: 900px) {
+    .important-notice { padding: 0 1.5rem; }
+    .notice-banner { padding: 1.2rem 1.3rem; gap: 1rem; }
+    .notice-icon { font-size: 1.8rem; }
+    .notice-text { font-size: 0.95rem; }
+    .notice-text strong { font-size: 1.15rem; }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    header { padding: 1.5rem; }
+    .hero { 
+      grid-template-columns: 1fr; 
+      padding: 2rem 1.5rem 4rem;
+      gap: 2.5rem;
+    }
+    .hero-right { aspect-ratio: 5/4; max-width: 400px; margin: 0 auto; }
+    .hero-badge { width: 100px; height: 100px; font-size: 0.85rem; right: -10px; bottom: -20px; }
+    .booking-section, .bookings-list { padding: 3rem 1.5rem; }
+    .booking-grid { grid-template-columns: 1fr; padding: 1.5rem; gap: 2rem; }
+    .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
+    .toast { right: 1rem; left: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Дача <span>Фроловых</span></div>
+  <div class="nav-tag">— Нижний Новгород, 2026</div>
+</header>
+
+<section class="hero">
+  <div class="hero-left">
+    <h1>Тихие дни<em>среди сосен</em></h1>
+    <p>Семейная дача в окружении леса. Баня, мангал, гамаки между деревьев, печь и неспешные вечера. Забронируйте свой заезд — и оставьте город за порогом.</p>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">8</span><span class="stat-label">Спальных мест</span></div>
+      <div class="stat"><span class="stat-num">120</span><span class="stat-label">м² дома</span></div>
+      <div class="stat"><span class="stat-num">15</span><span class="stat-label">Соток леса</span></div>
+    </div>
+  </div>
+  <div class="hero-right">
+ <img class="hero-photo" src="dacha.png" alt="Дача Фроловых">
+    <div class="hero-photo-overlay"></div>
+    <div class="hero-photo-warmth"></div>
+    <div class="hero-badge">бронируй заезд →</div>
+  </div>
+</section>
+
+<section class="important-notice">
+  <div class="notice-banner">
+    <div class="notice-icon">⚠️</div>
+    <div class="notice-text">
+      <strong>ВАЖНО!</strong>
+      Без предварительного бронирования заезд запрещён!!!
+    </div>
+  </div>
+</section>
+
+<section class="booking-section" id="booking">
+  <div class="section-head">
+    <div class="section-tag">— забронировать —</div>
+    <h2>Выберите <em>свои даты</em></h2>
+  </div>
+
+  <div class="booking-grid">
+    <div class="calendar-wrap">
+      <h3>Календарь заездов</h3>
+      <p class="calendar-sub">Нажмите на дату заезда, потом — на дату выезда</p>
+      
+      <div class="calendar-nav">
+        <button class="nav-btn" id="prevMonth">‹</button>
+        <div class="month-title" id="monthTitle"></div>
+        <button class="nav-btn" id="nextMonth">›</button>
+      </div>
+      
+      <div class="weekdays">
+        <div class="weekday">Пн</div>
+        <div class="weekday">Вт</div>
+        <div class="weekday">Ср</div>
+        <div class="weekday">Чт</div>
+        <div class="weekday">Пт</div>
+        <div class="weekday">Сб</div>
+        <div class="weekday">Вс</div>
+      </div>
+      
+      <div class="days" id="daysGrid"></div>
+      
+      <div class="legend">
+        <div class="legend-item"><div class="legend-box" style="background: rgba(255,255,255,0.6); border: 1px solid rgba(107,79,58,0.3);"></div>Свободно</div>
+        <div class="legend-item"><div class="legend-box" style="background: var(--ember);"></div>Выбрано</div>
+        <div class="legend-item"><div class="legend-box" style="background: rgba(201,97,46,0.25);"></div>В диапазоне</div>
+        <div class="legend-item"><div class="legend-box" style="background: var(--bark-deep);"></div>Занято</div>
+      </div>
+    </div>
+
+    <div class="form-wrap">
+      <h3>Ваши данные</h3>
+      <p class="form-sub">Оставьте контакты — мы свяжемся</p>
+      
+      <div class="selected-dates">
+        <div class="label">Выбранные даты</div>
+        <div class="value" id="selectedDates"><span class="empty-text">Даты не выбраны</span></div>
+      </div>
+      
+      <div class="form-group">
+        <label for="name">Имя</label>
+        <input type="text" id="name" placeholder="Ваше имя">
+      </div>
+      
+      <div class="form-group">
+        <label for="phone">Телефон</label>
+        <input type="tel" id="phone" placeholder="+7 (___) ___-__-__">
+      </div>
+      
+      <div class="form-group">
+        <label for="guests">Количество гостей</label>
+        <select id="guests">
+          <option value="1-2">1–2 человека</option>
+          <option value="3-4" selected>3–4 человека</option>
+          <option value="5-6">5–6 человек</option>
+          <option value="7-8">7–8 человек</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="notes">Пожелания</label>
+        <textarea id="notes" placeholder="Баня? Дрова? Что-то ещё?"></textarea>
+      </div>
+      
+      <button class="submit-btn" id="submitBtn">Забронировать заезд</button>
+    </div>
+  </div>
+</section>
+
+<section class="bookings-list">
+  <h3>Активные <em>бронирования</em></h3>
+  <div class="bookings-grid" id="bookingsGrid"></div>
+</section>
+
+<footer>
+  <p><em>Дача Фроловых</em> · Демо-сайт · Бронирования сохраняются в вашем браузере</p>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const MONTHS_RU = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+  const MONTHS_RU_GEN = ['янв','фев','мар','апр','мая','июн','июл','авг','сен','окт','ноя','дек'];
+  
+  let currentDate = new Date();
+  let viewYear = currentDate.getFullYear();
+  let viewMonth = currentDate.getMonth();
+  let selectedStart = null;
+  let selectedEnd = null;
+  let bookings = JSON.parse(localStorage.getItem('frolov_bookings') || '[]');
+
+  function toKey(date) {
+    return date.getFullYear() + '-' + String(date.getMonth()+1).padStart(2,'0') + '-' + String(date.getDate()).padStart(2,'0');
+  }
+  function fromKey(key) {
+    const [y,m,d] = key.split('-').map(Number);
+    return new Date(y, m-1, d);
+  }
+  function formatDate(date) {
+    return date.getDate() + ' ' + MONTHS_RU_GEN[date.getMonth()];
+  }
+  
+  function getBookedDates() {
+    const set = new Set();
+    bookings.forEach(b => {
+      const start = fromKey(b.start);
+      const end = fromKey(b.end);
+      for(let d = new Date(start); d <= end; d.setDate(d.getDate()+1)) {
+        set.add(toKey(d));
+      }
+    });
+    return set;
+  }
+
+  function renderCalendar() {
+    const monthTitle = document.getElementById('monthTitle');
+    const daysGrid = document.getElementById('daysGrid');
+    
+    monthTitle.textContent = MONTHS_RU[viewMonth] + ' ' + viewYear;
+    daysGrid.innerHTML = '';
+    
+    const firstDay = new Date(viewYear, viewMonth, 1);
+    const lastDay = new Date(viewYear, viewMonth+1, 0);
+    let startWeekday = firstDay.getDay();
+    startWeekday = startWeekday === 0 ? 6 : startWeekday - 1;
+    
+    for(let i = 0; i < startWeekday; i++) {
+      const empty = document.createElement('div');
+      empty.className = 'day empty';
+      daysGrid.appendChild(empty);
+    }
+    
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    const bookedDates = getBookedDates();
+    
+    for(let d = 1; d <= lastDay.getDate(); d++) {
+      const date = new Date(viewYear, viewMonth, d);
+      const key = toKey(date);
+      const cell = document.createElement('div');
+      cell.className = 'day';
+      cell.textContent = d;
+      cell.dataset.key = key;
+      
+      if(date < today) cell.classList.add('past');
+      if(bookedDates.has(key)) cell.classList.add('booked');
+      if(toKey(today) === key) cell.classList.add('today');
+      
+      if(selectedStart && key === selectedStart) cell.classList.add('selected');
+      if(selectedEnd && key === selectedEnd) cell.classList.add('selected');
+      if(selectedStart && selectedEnd) {
+        const start = fromKey(selectedStart);
+        const end = fromKey(selectedEnd);
+        if(date > start && date < end) cell.classList.add('in-range');
+      }
+      
+      if(!cell.classList.contains('past') && !cell.classList.contains('booked')) {
+        cell.addEventListener('click', () => handleDayClick(key));
+      }
+      
+      daysGrid.appendChild(cell);
+    }
+  }
+
+  function handleDayClick(key) {
+    if(!selectedStart || (selectedStart && selectedEnd)) {
+      selectedStart = key;
+      selectedEnd = null;
+    } else {
+      const start = fromKey(selectedStart);
+      const clicked = fromKey(key);
+      if(clicked < start) {
+        selectedEnd = selectedStart;
+        selectedStart = key;
+      } else if(clicked.getTime() === start.getTime()) {
+        selectedEnd = key;
+      } else {
+        // Check if range crosses booked dates
+        const booked = getBookedDates();
+        for(let d = new Date(start); d <= clicked; d.setDate(d.getDate()+1)) {
+          if(booked.has(toKey(d))) {
+            showToast('В выбранном диапазоне есть занятые даты', 'error');
+            selectedStart = key;
+            selectedEnd = null;
+            renderCalendar();
+            updateSelectedDisplay();
+            return;
+          }
+        }
+        selectedEnd = key;
+      }
+    }
+    renderCalendar();
+    updateSelectedDisplay();
+  }
+
+  function updateSelectedDisplay() {
+    const el = document.getElementById('selectedDates');
+    if(selectedStart && selectedEnd) {
+      const start = fromKey(selectedStart);
+      const end = fromKey(selectedEnd);
+      const nights = Math.round((end - start) / (1000*60*60*24));
+      el.innerHTML = formatDate(start) + ' — ' + formatDate(end) + ' <span style="font-size:0.8rem;color:var(--bark);font-weight:400">(' + nights + ' ноч.)</span>';
+    } else if(selectedStart) {
+      const start = fromKey(selectedStart);
+      el.innerHTML = formatDate(start) + ' <span style="font-size:0.8rem;color:var(--bark);font-weight:400">→ выберите дату выезда</span>';
+    } else {
+      el.innerHTML = '<span class="empty-text">Даты не выбраны</span>';
+    }
+  }
+
+  function renderBookings() {
+    const grid = document.getElementById('bookingsGrid');
+    if(bookings.length === 0) {
+      grid.innerHTML = '<div class="no-bookings">Пока нет бронирований — будьте первыми</div>';
+      return;
+    }
+    grid.innerHTML = bookings.map((b, i) => {
+      const start = fromKey(b.start);
+      const end = fromKey(b.end);
+      return `
+        <div class="booking-card">
+          <button class="delete-btn" onclick="deleteBooking(${i})" title="Отменить">×</button>
+          <div class="name">${escapeHtml(b.name)}</div>
+          <div class="dates">${formatDate(start)} — ${formatDate(end)} · ${b.guests} гостей</div>
+          ${b.notes ? `<div class="note">«${escapeHtml(b.notes)}»</div>` : ''}
+        </div>
+      `;
+    }).join('');
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function deleteBooking(index) {
+    if(!confirm('Отменить бронирование?')) return;
+    bookings.splice(index, 1);
+    localStorage.setItem('frolov_bookings', JSON.stringify(bookings));
+    renderBookings();
+    renderCalendar();
+    showToast('Бронирование отменено');
+  }
+  window.deleteBooking = deleteBooking;
+
+  function showToast(msg, type) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.className = 'toast show' + (type === 'error' ? ' error' : '');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+  }
+
+  document.getElementById('prevMonth').addEventListener('click', () => {
+    viewMonth--;
+    if(viewMonth < 0) { viewMonth = 11; viewYear--; }
+    renderCalendar();
+  });
+  document.getElementById('nextMonth').addEventListener('click', () => {
+    viewMonth++;
+    if(viewMonth > 11) { viewMonth = 0; viewYear++; }
+    renderCalendar();
+  });
+
+  document.getElementById('submitBtn').addEventListener('click', () => {
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const guests = document.getElementById('guests').value;
+    const notes = document.getElementById('notes').value.trim();
+    
+    if(!selectedStart || !selectedEnd) {
+      showToast('Выберите даты заезда и выезда', 'error');
+      return;
+    }
+    if(!name) {
+      showToast('Укажите имя', 'error');
+      return;
+    }
+    if(!phone) {
+      showToast('Укажите телефон', 'error');
+      return;
+    }
+    
+    bookings.push({
+      start: selectedStart,
+      end: selectedEnd,
+      name, phone, guests, notes
+    });
+    localStorage.setItem('frolov_bookings', JSON.stringify(bookings));
+    
+    selectedStart = null;
+    selectedEnd = null;
+    document.getElementById('name').value = '';
+    document.getElementById('phone').value = '';
+    document.getElementById('notes').value = '';
+    
+    renderCalendar();
+    renderBookings();
+    updateSelectedDisplay();
+    showToast('Заезд забронирован! Ждём вас 🌲');
+  });
+
+  renderCalendar();
+  renderBookings();
+  updateSelectedDisplay();
+</script>
+
+</body>
+</html>
