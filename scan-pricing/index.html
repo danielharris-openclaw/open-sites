@@ -3,10 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Расчет стоимости лазерного сканирования. 3DProScan</title>
+  <title>Лазерное 3D-сканирование и обмеры в Нижнем Новгороде | Trimble X7</title>
+  <meta name="description" content="Обмеры помещений, зданий, фасадов, объектов культурного наследия и резервуаров методом лазерного 3D-сканирования Trimble X7. Нижний Новгород и выезды до 500 км. Облако точек, DWG, PDF, Revit/BIM по ТЗ.">
   <link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-  <meta name="apple-mobile-web-app-title" content="3DProScan">
+  <meta name="apple-mobile-web-app-title" content="Лазерные обмеры">
   <meta name="theme-color" content="#111412">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -78,9 +79,22 @@
       background: rgba(255,250,240,.8);
       padding: 8px 10px;
     }
+    .header-links {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .header-links a {
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 14px;
+    }
     main { padding: 0 clamp(18px, 4vw, 54px) 54px; }
     .hero {
-      min-height: 420px;
+      min-height: 520px;
       display: grid;
       grid-template-columns: minmax(0, 1.05fr) minmax(320px, .95fr);
       gap: clamp(24px, 5vw, 70px);
@@ -100,6 +114,43 @@
       font-size: clamp(17px, 2vw, 22px);
       line-height: 1.45;
       margin: 24px 0 0;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 18px;
+      padding: 8px 10px;
+      border: 1px solid var(--green);
+      background: rgba(255,250,240,.85);
+      color: var(--green);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 13px 18px;
+      border: 2px solid var(--ink);
+      background: var(--lime);
+      color: var(--ink);
+      text-decoration: none;
+      font: 800 13px "IBM Plex Mono", monospace;
+      box-shadow: 5px 5px 0 rgba(17,20,18,.18);
+    }
+    .btn.secondary {
+      background: var(--panel);
+      box-shadow: none;
     }
     .hero-card {
       background: var(--dark);
@@ -126,6 +177,120 @@
       line-height: 1;
       margin-bottom: 8px;
     }
+    .trust-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 12px 0 34px;
+    }
+    .trust-item {
+      background: rgba(255,250,240,.94);
+      border: 2px solid var(--ink);
+      padding: 16px;
+      min-height: 104px;
+      box-shadow: 4px 4px 0 rgba(17,20,18,.12);
+    }
+    .trust-item strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 18px;
+    }
+    .trust-item span {
+      color: var(--muted);
+      line-height: 1.4;
+      font-size: 14px;
+    }
+    .content-section {
+      padding: clamp(34px, 6vw, 72px) 0;
+      border-top: 2px solid rgba(17,20,18,.12);
+    }
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, .72fr) minmax(260px, .28fr);
+      gap: 24px;
+      align-items: end;
+      margin-bottom: 22px;
+    }
+    .section-head p {
+      margin: 0;
+      color: #343d38;
+      line-height: 1.55;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .info-card {
+      background: rgba(255,250,240,.94);
+      border: 2px solid var(--ink);
+      padding: 18px;
+      min-height: 158px;
+      box-shadow: 5px 5px 0 rgba(17,20,18,.12);
+    }
+    .info-card strong {
+      display: block;
+      margin-bottom: 9px;
+      font-size: 18px;
+    }
+    .info-card p {
+      margin: 0;
+      color: #37413c;
+      line-height: 1.48;
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .feature {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 14px;
+      align-items: start;
+      background: rgba(255,250,240,.94);
+      border: 1px solid var(--line);
+      padding: 16px;
+    }
+    .feature .num {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      background: var(--dark);
+      color: var(--lime);
+      font-family: "IBM Plex Mono", monospace;
+      font-weight: 800;
+    }
+    .feature strong { display: block; margin-bottom: 5px; }
+    .feature p { margin: 0; color: var(--muted); line-height: 1.45; }
+    .calculator-intro {
+      margin-bottom: 16px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 360px);
+      gap: 18px;
+      align-items: end;
+    }
+    .calculator-intro p {
+      color: #343d38;
+      line-height: 1.55;
+      margin: 0;
+    }
+    .contact-band {
+      margin-top: 24px;
+      background: var(--dark);
+      color: white;
+      border: 2px solid var(--ink);
+      padding: clamp(22px, 4vw, 36px);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 18px;
+      align-items: center;
+      box-shadow: 8px 8px 0 var(--lime);
+    }
+    .contact-band h2 { margin-bottom: 10px; }
+    .contact-band p { margin: 0; color: rgba(255,255,255,.78); line-height: 1.55; }
+    .contact-band .btn { box-shadow: none; }
     .mono {
       font-family: "IBM Plex Mono", monospace;
       text-transform: uppercase;
@@ -289,40 +454,121 @@
     }
     .toast.show { transform: translateY(0); opacity: 1; }
     @media (max-width: 980px) {
-      .hero, .workspace { grid-template-columns: 1fr; }
+      .hero, .workspace, .section-head, .calculator-intro, .contact-band { grid-template-columns: 1fr; }
       .result { position: static; }
       .brief-grid { grid-template-columns: 1fr; }
+      .trust-strip, .cards, .feature-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 640px) {
       header { align-items: flex-start; flex-direction: column; }
+      .header-links { justify-content: flex-start; }
       .form-grid, .hero-grid { grid-template-columns: 1fr; }
+      .trust-strip, .cards, .feature-grid { grid-template-columns: 1fr; }
       .tab { flex: 1 1 calc(50% - 8px); }
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="brand"><div class="mark">3D</div><div>3DProScan<br><span class="mono">расчет стоимости</span></div></div>
-    <div class="status">по прайсу 2026 · предварительный расчёт</div>
+    <div class="brand"><div class="mark">3D</div><div>Лазерные обмеры<br><span class="mono">Trimble X7 · Нижний Новгород</span></div></div>
+    <div class="header-links">
+      <a href="#services">Услуги</a>
+      <a href="#deliverables">Результат</a>
+      <a href="#calculator">Калькулятор</a>
+      <a href="#contacts">Контакты</a>
+    </div>
   </header>
 
   <main>
     <section class="hero">
       <div>
-        <h1>Расчет стоимости лазерного сканирования. 3DProScan</h1>
-        <p>Выберите тип объекта, площадь и результат. Калькулятор считает по правилам из таблицы: минимальные выезды, ставки за м², коэффициенты LOD300, культурное наследие, НДС, фасады, топо и резервуары.</p>
+        <div class="eyebrow">обмеры методом лазерного 3D-сканирования</div>
+        <h1>Лазерное 3D-сканирование и точные обмеры помещений</h1>
+        <p>Работаем на Trimble X7 для дизайнеров, проектировщиков, строителей, обследователей и собственников. Нижний Новгород, область и выезды в соседние регионы до 500 км.</p>
+        <div class="cta-row">
+          <a class="btn" href="#calculator">Рассчитать стоимость</a>
+          <a class="btn secondary" href="#contacts">Обсудить задачу</a>
+        </div>
       </div>
       <div class="hero-card">
-        <div class="mono">что умеет</div>
+        <div class="mono">что получите</div>
         <div class="hero-grid">
-          <div class="metric"><strong>5</strong><span>типов расчёта</span></div>
-          <div class="metric"><strong>LOD</strong><span>200/300 коэффициенты</span></div>
-          <div class="metric"><strong>НДС</strong><span>5%, 25% или без</span></div>
-          <div class="metric"><strong>КП</strong><span>текст можно скопировать</span></div>
+          <div class="metric"><strong>1-2 мм</strong><span>точность измерений</span></div>
+          <div class="metric"><strong>5+ лет</strong><span>практический опыт</span></div>
+          <div class="metric"><strong>DWG</strong><span>чертежи, PDF, планы</span></div>
+          <div class="metric"><strong>500 км</strong><span>выезды от Нижнего</span></div>
         </div>
       </div>
     </section>
 
+    <section class="trust-strip" aria-label="Преимущества">
+      <div class="trust-item"><strong>Trimble X7</strong><span>Профессиональное лазерное сканирование помещений, фасадов, производств и сложной геометрии.</span></div>
+      <div class="trust-item"><strong>Договор и акт</strong><span>Работаем официально, по ТЗ, с понятным составом результата и сроками.</span></div>
+      <div class="trust-item"><strong>От 20 000 ₽</strong><span>Минимальная стоимость заказа. Точную цену считаем по площади, сложности и формату выдачи.</span></div>
+      <div class="trust-item"><strong>НН + регионы</strong><span>Выезд по Нижегородской области и в соседние регионы до 500 км от Нижнего Новгорода.</span></div>
+    </section>
+
+    <section class="content-section" id="services">
+      <div class="section-head">
+        <div>
+          <div class="mono">услуги</div>
+          <h2>Что обмеряем</h2>
+        </div>
+        <p>Берём задачи, где обычной рулетки и ручного обмера уже мало: нужна точная геометрия, фиксация фактического состояния и удобные материалы для проектирования.</p>
+      </div>
+      <div class="cards">
+        <div class="info-card"><strong>Квартиры и дома</strong><p>Обмеры для дизайн-проектов, перепланировок, ремонта, реконструкции и точной передачи геометрии помещения.</p></div>
+        <div class="info-card"><strong>Коммерческие объекты</strong><p>Офисы, магазины, склады, помещения сложной формы, фасады и внутренние сканы.</p></div>
+        <div class="info-card"><strong>Промышленные помещения</strong><p>Цеха, производства, инженерные коммуникации, оборудование, контрольные обмеры для строителей.</p></div>
+        <div class="info-card"><strong>Объекты культурного наследия</strong><p>Фиксация сложной архитектуры, фасадов, лепнины, сводов, исторических элементов и фактических отклонений.</p></div>
+        <div class="info-card"><strong>Резервуары</strong><p>Обмеры и градуировка резервуаров, геометрия ёмкостей, подготовка данных для расчётов и документации.</p></div>
+        <div class="info-card"><strong>Обследования</strong><p>Материалы для обследователей, проектировщиков и экспертов: облако точек, чертежи, модели, площади и габариты.</p></div>
+      </div>
+    </section>
+
+    <section class="content-section" id="deliverables">
+      <div class="section-head">
+        <div>
+          <div class="mono">результат</div>
+          <h2>Что передаём после работ</h2>
+        </div>
+        <p>Формат выдачи подбираем под задачу: от простого облака точек до чертежей, 3D-модели или BIM-модели по техническому заданию.</p>
+      </div>
+      <div class="feature-grid">
+        <div class="feature"><div class="num">01</div><div><strong>Облако точек</strong><p>Цветное или ч/б облако точек для проверки геометрии, проектирования и дальнейшей обработки.</p></div></div>
+        <div class="feature"><div class="num">02</div><div><strong>DWG и PDF</strong><p>Обмерные планы, потолки, стены, фасады, разрезы и видимые коммуникации в удобном формате.</p></div></div>
+        <div class="feature"><div class="num">03</div><div><strong>3D / Revit / BIM</strong><p>Модели по договорённости: детализация, LOD, состав элементов и формат согласуются до старта.</p></div></div>
+        <div class="feature"><div class="num">04</div><div><strong>Площади и габариты</strong><p>Фактические размеры, объёмы, площади, отклонения и данные для смет, ремонта или обследования.</p></div></div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <div class="section-head">
+        <div>
+          <div class="mono">процесс</div>
+          <h2>Как проходит работа</h2>
+        </div>
+        <p>Сначала уточняем задачу и формат результата, затем считаем стоимость. Это защищает от ситуации, когда сканирование сделали, а нужных заказчику файлов в итоге нет.</p>
+      </div>
+      <div class="cards">
+        <div class="info-card"><strong>1. Задача и исходные данные</strong><p>Вы присылаете адрес, площадь, фото или планы, описываете желаемый результат и сроки.</p></div>
+        <div class="info-card"><strong>2. Расчёт и договорённости</strong><p>Подбираем формат: облако точек, DWG/PDF, 3D, Revit/BIM, градуировка или материалы для обследования.</p></div>
+        <div class="info-card"><strong>3. Выезд и сканирование</strong><p>Проводим сканирование Trimble X7 на объекте в Нижнем Новгороде, области или соседнем регионе.</p></div>
+        <div class="info-card"><strong>4. Камеральная обработка</strong><p>Регистрируем сканы, готовим облако точек, чертежи, модели и дополнительные материалы.</p></div>
+        <div class="info-card"><strong>5. Передача результата</strong><p>Отдаём файлы в согласованных форматах, поясняем состав и при необходимости готовим документы.</p></div>
+        <div class="info-card"><strong>6. Поддержка после выдачи</strong><p>Помогаем разобраться с файлами, уточнить состав данных и подготовить дополнительную детализацию.</p></div>
+      </div>
+    </section>
+
+    <section class="content-section" id="calculator">
+      <div class="calculator-intro">
+        <div>
+          <div class="mono">предварительная оценка</div>
+          <h2>Калькулятор стоимости</h2>
+          <p>Расчёт ниже даёт ориентир по бюджету. Точная цена зависит от объекта, доступа, площади, удалённости, срочности, состава выдачи и нужной детализации.</p>
+        </div>
+        <div class="status">минимальный заказ · от 20 000 ₽</div>
+      </div>
     <nav class="tabs" aria-label="Тип расчёта">
       <button class="tab active" data-tab="interior">Помещения</button>
       <button class="tab" data-tab="facade">Фасады</button>
@@ -348,7 +594,7 @@
             </select></div>
             <div><label>Детализация</label><select id="lod"><option value="1">LOD200</option><option value="1.5">LOD300 ×1.5</option></select></div>
             <div><label>НДС</label><select id="vat"><option value="0">Без НДС</option><option value="0.05">НДС 5%</option><option value="0.25">НДС 25%</option></select></div>
-            <div><label>Км от МКАД / города</label><input id="distance" type="number" min="0" value="0"><div class="field-note">В таблице: каждый км от МКАД +200 ₽.</div></div>
+            <div><label>Км от Нижнего Новгорода</label><input id="distance" type="number" min="0" value="0"><div class="field-note">Для выездов в область и соседние регионы. Ориентир: до 500 км от Нижнего.</div></div>
             <div><label>Скидка для 1000+ м²</label><select id="discount"><option value="0">Нет</option><option value="0.1">10%</option><option value="0.25">25%</option><option value="0.5">50%</option></select></div>
           </div>
           <div class="addons">
@@ -407,8 +653,8 @@
               <option value="35000">Топо с сетями и согласованиями · от 35 000 ₽/га</option>
             </select></div>
             <div><label>Локация</label><select id="topoLocation">
-              <option value="0">Москва/МО, СПб/ЛО</option>
-              <option value="1">Регион, командировочные отдельно</option>
+              <option value="0">Нижний Новгород / область</option>
+              <option value="1">Соседний регион, командировочные отдельно</option>
             </select></div>
           </div>
           <div class="field-note">Для ВЛС в таблице указан минимум 300 000 ₽ за облако и ЦММ, дальше ставка зависит от объёма.</div>
@@ -457,6 +703,7 @@
         <button class="copy-btn" id="copyBtn">Скопировать текст для КП</button>
       </aside>
     </section>
+    </section>
 
     <section class="brief">
       <h2>Что спросить у заказчика</h2>
@@ -468,6 +715,32 @@
         <div class="brief-item"><strong>Точность и сроки</strong>Стандартно до 10 мм. Точность 1 мм и менее может стоить до ×3 из-за другого оборудования.</div>
         <div class="brief-item"><strong>Риски</strong>Люди на объекте, закрытые помещения, отопление/освещение, высотность фасада, автовышка, командировка.</div>
       </div>
+    </section>
+
+    <section class="content-section">
+      <div class="section-head">
+        <div>
+          <div class="mono">faq</div>
+          <h2>Частые вопросы</h2>
+        </div>
+        <p>Короткие ответы на вопросы, которые обычно возникают перед заказом лазерного сканирования и обмерных работ.</p>
+      </div>
+      <div class="cards">
+        <div class="info-card"><strong>Чем лазерное сканирование лучше ручного обмера?</strong><p>Сканер фиксирует миллионы точек и снижает риск пропустить выступы, отклонения, кривизну стен, потолков и сложные узлы.</p></div>
+        <div class="info-card"><strong>Можно ли получить DWG?</strong><p>Да. По результатам сканирования можно подготовить обмерные планы, фасады, разрезы и другие чертежи в DWG/PDF.</p></div>
+        <div class="info-card"><strong>Делаете Revit или BIM?</strong><p>Да, по договорённости. Сначала согласуем LOD, состав модели, формат и уровень детализации.</p></div>
+        <div class="info-card"><strong>Выезжаете за пределы Нижнего?</strong><p>Да. Работаем по Нижнему Новгороду, области и готовы выезжать в соседние регионы до 500 км.</p></div>
+        <div class="info-card"><strong>Работаете с ОКН?</strong><p>Да. Для объектов культурного наследия можно зафиксировать фасады, лепнину, своды, сложную геометрию и фактические отклонения.</p></div>
+        <div class="info-card"><strong>От чего зависит цена?</strong><p>От площади, сложности объекта, удалённости, доступа, срочности, точности и формата результата: облако, DWG, PDF, 3D или BIM.</p></div>
+      </div>
+    </section>
+
+    <section class="contact-band" id="contacts">
+      <div>
+        <h2>Пришлите задачу — подскажем формат и стоимость</h2>
+        <p>Напишите, что нужно обмерить, где находится объект, примерную площадь и какой результат нужен: облако точек, DWG/PDF, 3D, Revit/BIM, данные для обследования или резервуаров.</p>
+      </div>
+      <a class="btn" href="#calculator">Запросить расчёт</a>
     </section>
   </main>
 
